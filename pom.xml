@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
+    
+    <groupId>org.pushingpixels</groupId>
+    <artifactId>swing-effects</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    
+    <name>Swing Effects</name>
+    <description>Parent project for **Kirill Grouchnikov** open source projects</description>
+    <url>https://github.com/kirill-grouchnikov</url>
+    
+    <licenses>
+        <license>
+            <name>BSD 3-Clause License</name>
+            <url>https://github.com/kirill-grouchnikov/flamingo/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <name>Kirill Grouchnikov</name>
+            <url>www.pushing-pixels.org/about-kirill</url>
+        </developer>
+    </developers>
+        
+    <scm>
+        <url>http://github.com/mtbadi39/swing-effects</url>
+        <connection>scm:git:https://github.com/mtbadi39/swing-effects.git</connection>
+        <developerConnection>scm:git:https://github.com/mtbadi39/swing-effects.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        
+        <mainSourceDir>${project.basedir}/src/main/java</mainSourceDir>
+        <testSourceDir>${project.basedir}/src/test/java</testSourceDir>
+        
+        <flamingo.version>5.1.01</flamingo.version>
+        <trident.version>1.4</trident.version>
+    </properties>
+
+
+    <modules>
+        <module>Trident</module>
+        <module>Flamingo</module>
+        <module>Substance</module>
+    </modules>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <showWarnings>false</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <compilerArgs>
+                        <!--arg>-Werror</arg-->
+                        <!--arg>-verbose</arg-->
+                        <!--arg>-Xlint:all,-options,-path,-processing</arg-->
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

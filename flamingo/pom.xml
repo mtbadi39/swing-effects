@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.pushingpixels</groupId>
+        <artifactId>swing-effects</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    
+    <groupId>org.pushingpixels</groupId>
+    <artifactId>flamingo</artifactId>
+    <version>5.1.01</version>
+    <packaging>jar</packaging>
+    <name>Flamingo</name>
+    <description>Flamingo Swing component suite</description>
+    <url>http://www.pushing-pixels.org</url>
+    
+    <licenses>
+        <license>
+            <name>BSD 3-Clause License</name>
+            <url>https://github.com/kirill-grouchnikov/flamingo/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <name>Kirill Grouchnikov</name>
+            <url>www.pushing-pixels.org/about-kirill</url>
+        </developer>
+    </developers>
+    
+    <properties>
+        <sourceUrl>https://github.com/kirill-grouchnikov/flamingo/archive</sourceUrl>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.tmatesoft.svnkit</groupId>
+            <artifactId>svnkit</artifactId>
+            <version>1.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-all</artifactId>
+            <version>1.9.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.pushingpixels</groupId>
+            <artifactId>trident</artifactId>
+            <version>1.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jgoodies</groupId>
+            <artifactId>forms</artifactId>
+            <version>1.2.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-swing-junit</artifactId>
+            <version>1.2.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <!-- from https://github.com/jamesward/unsnapshot-maven-plugin -->
+                <groupId>com.jamesward</groupId>
+                <artifactId>unsnapshot-maven-plugin</artifactId>
+                <version>0.2</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unsnapshot</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>wagon-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>download-single</goal>
+                        </goals>
+                        <configuration>
+                            <url>${sourceUrl}</url>
+                            <fromFile>v${version.unsnapshot}.zip</fromFile>
+                            <toFile>${project.build.directory}/${project.artifactId}-original.zip</toFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo message="Cleaning main packages" />
+                                <delete includeEmptyDirs="true">
+                                    <fileset dir="${mainSourceDir}" includes="**/*"/>
+                                </delete>
+                                <echo message="Cleaning test packages" />
+                                <delete includeEmptyDirs="true">
+                                    <fileset dir="${testSourceDir}" includes="**/*"/>
+                                </delete>
+                                <echo message="Unzipping Trident archive" />
+                                <unzip src="${project.build.directory}/${project.artifactId}-original.zip" dest="${project.build.directory}" />
+                                <echo message="Copying main packages" />
+                                <copy todir="${mainSourceDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-${version.unsnapshot}/src">
+                                        <exclude name="*.license"/>
+                                        <exclude name="test/**"/>
+                                        <exclude name="utest/**"/>
+                                    </fileset>
+                                </copy>
+                                <echo message="Copying test packages" />
+                                <copy todir="${testSourceDir}/test">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-${version.unsnapshot}/src/test" />
+                                </copy>
+                                <copy todir="${testSourceDir}/utest">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-${version.unsnapshot}/src/utest" />
+                                </copy>
+                                <echo message="Copying license files" />
+                                <copy todir="${project.basedir}">
+                                    <fileset dir="${project.build.directory}">
+                                        <include name="**/*.license"/>  <!--NOTE DIFFERENCE HERE-->
+                                    </fileset>
+                                    <mapper type="flatten"/>
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
