@@ -14,12 +14,12 @@
     <packaging>jar</packaging>
     <name>Trident</name>
     <description>Animation library for Java applications</description>
-    <url>http://www.pushing-pixels.org</url>
+    <url>https://github.com/kirill-grouchnikov/trident</url>
     
     <licenses>
         <license>
-            <name>BSD 3-Clause License</name>
-            <url>https://github.com/kirill-grouchnikov/flamingo/blob/master/LICENSE</url>
+            <name>BSD License</name>
+            <url>https://opensource.org/licenses/bsd-license.php</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -27,7 +27,7 @@
     <developers>
         <developer>
             <name>Kirill Grouchnikov</name>
-            <url>www.pushing-pixels.org/about-kirill</url>
+            <url>http://www.pushing-pixels.org/about-kirill</url>
         </developer>
     </developers>
     
@@ -37,20 +37,6 @@
     
     <build>
         <plugins>
-            <plugin>
-                <!-- from https://github.com/jamesward/unsnapshot-maven-plugin -->
-                <groupId>com.jamesward</groupId>
-                <artifactId>unsnapshot-maven-plugin</artifactId>
-                <version>0.2</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>unsnapshot</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>wagon-maven-plugin</artifactId>
@@ -63,7 +49,7 @@
                         </goals>
                         <configuration>
                             <url>${sourceUrl}</url>
-                            <fromFile>v${version.unsnapshot}.zip</fromFile>
+                            <fromFile>v${project.version}.zip</fromFile>
                             <toFile>${project.build.directory}/${project.artifactId}-original.zip</toFile>
                         </configuration>
                     </execution>
@@ -92,7 +78,7 @@
                                 <unzip src="${project.build.directory}/${project.artifactId}-original.zip" dest="${project.build.directory}" />
                                 <echo message="Copying main packages" />
                                 <copy todir="${mainSourceDir}">
-                                    <fileset dir="${project.build.directory}/${project.artifactId}-${version.unsnapshot}/src">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-${project.version}/src">
                                         <exclude name="*.license"/>
                                         <exclude name="test/**"/>
                                         <exclude name="utest/**"/>
@@ -100,13 +86,13 @@
                                 </copy>
                                 <echo message="Copying test packages" />
                                 <copy todir="${testSourceDir}/test">
-                                    <fileset dir="${project.build.directory}/${project.artifactId}-${version.unsnapshot}/src/test" />
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-${project.version}/src/test" />
                                 </copy>
 
                                 <echo message="Copying license files" />
                                 <copy todir="${project.basedir}">
                                     <fileset dir="${project.build.directory}">
-                                        <include name="**/*.license"/>  <!--NOTE DIFFERENCE HERE-->
+                                        <include name="**/*.license"/>
                                     </fileset>
                                     <mapper type="flatten"/>
                                 </copy>
@@ -114,23 +100,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>sonatype-nexus-staging</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
             </plugin>
         </plugins>
     </build>

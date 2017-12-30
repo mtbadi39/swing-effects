@@ -14,21 +14,21 @@
     <packaging>pom</packaging>
     
     <name>Swing Effects</name>
-    <description>Parent project for **Kirill Grouchnikov** open source projects</description>
-    <url>https://github.com/kirill-grouchnikov</url>
+    <description>Mavenized versions of **Kirill Grouchnikov** libraries : Substance, Trident and Flamingo</description>
+    <url>https://github.com/mtbadi39/swing-effects</url>
     
     <licenses>
         <license>
             <name>BSD 3-Clause License</name>
-            <url>https://github.com/kirill-grouchnikov/flamingo/blob/master/LICENSE</url>
+            <url>https://github.com/mtbadi39/swing-effects/blob/master/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
     
     <developers>
         <developer>
-            <name>Kirill Grouchnikov</name>
-            <url>www.pushing-pixels.org/about-kirill</url>
+            <name>mtbadi39</name>
+            <url>https://github.com/mtbadi39</url>
         </developer>
     </developers>
         
@@ -48,11 +48,7 @@
         
         <mainSourceDir>${project.basedir}/src/main/java</mainSourceDir>
         <testSourceDir>${project.basedir}/src/test/java</testSourceDir>
-        
-        <flamingo.version>5.1.01</flamingo.version>
-        <trident.version>1.4</trident.version>
     </properties>
-
 
     <modules>
         <module>Trident</module>
