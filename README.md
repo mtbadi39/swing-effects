@@ -12,5 +12,5 @@ A mavenized versions of **[Kirill Grouchnikov](https://github.com/kirill-grouchn
 
   `$ mvn clean install`
   
-* libraries are now deployed to your local maven repository. you can import them in any Maven/Gradle project.
+* libraries then deployed to your local maven repository. you can import them in any Maven/Gradle project.
 
