@@ -48,6 +48,8 @@
         
         <mainSourceDir>${project.basedir}/src/main/java</mainSourceDir>
         <testSourceDir>${project.basedir}/src/test/java</testSourceDir>
+        
+        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <modules>

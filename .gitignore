@@ -1,3 +1,9 @@
 /trident/target/
 /flamingo/target/
 /substance/target/
+/trident/src/main/java/
+/trident/src/test/java/
+/flamingo/src/main/java/
+/flamingo/src/test/java/
+/substance/src/main/java/
+/substance/src/test/java/

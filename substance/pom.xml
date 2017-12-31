@@ -89,7 +89,7 @@
                         <configuration>
                             <url>${sourceUrl}</url>
                             <fromFile>v${project.version}.zip</fromFile>
-                            <toFile>${project.build.directory}/${project.artifactId}-original.zip</toFile>
+                            <toFile>${project.build.directory}/${project.artifactId}-${project.version}.zip</toFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -114,7 +114,7 @@
                                     <fileset dir="${testSourceDir}" includes="**/*"/>
                                 </delete>
                                 <echo message="Unzipping Trident archive" />
-                                <unzip src="${project.build.directory}/${project.artifactId}-original.zip" dest="${project.build.directory}" />
+                                <unzip src="${project.build.directory}/${project.artifactId}-${project.version}.zip" dest="${project.build.directory}" />
                                 <echo message="Copying main packages" />
                                 <copy todir="${mainSourceDir}">
                                     <fileset dir="${project.build.directory}/${project.artifactId}-${project.version}/src">
