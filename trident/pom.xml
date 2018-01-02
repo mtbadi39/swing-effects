@@ -30,11 +30,7 @@
             <url>http://www.pushing-pixels.org/about-kirill</url>
         </developer>
     </developers>
-    
-    <properties>
-        <sourceUrl>https://github.com/kirill-grouchnikov/trident/archive</sourceUrl>
-    </properties>
-    
+       
     <build>
         <plugins>
             <plugin>
@@ -48,9 +44,9 @@
                             <goal>download-single</goal>
                         </goals>
                         <configuration>
-                            <url>${sourceUrl}</url>
-                            <fromFile>v${project.version}.zip</fromFile>
-                            <toFile>${project.build.directory}/${project.artifactId}-${project.version}.zip</toFile>
+                            <url>${project.url}/archive</url>
+                            <fromFile>master.zip</fromFile>
+                            <toDir>${project.build.directory}</toDir>
                         </configuration>
                     </execution>
                 </executions>
@@ -66,35 +62,54 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo message="Cleaning main packages" />
+                                <echo message="Cleaning ..." />
                                 <delete includeEmptyDirs="true">
                                     <fileset dir="${mainSourceDir}" includes="**/*"/>
                                 </delete>
-                                <echo message="Cleaning test packages" />
                                 <delete includeEmptyDirs="true">
                                     <fileset dir="${testSourceDir}" includes="**/*"/>
                                 </delete>
-                                <echo message="Unzipping Trident archive" />
-                                <unzip src="${project.build.directory}/${project.artifactId}-${project.version}.zip" dest="${project.build.directory}" />
-                                <echo message="Copying main packages" />
-                                <copy todir="${mainSourceDir}">
-                                    <fileset dir="${project.build.directory}/${project.artifactId}-${project.version}/src">
-                                        <exclude name="*.license"/>
-                                        <exclude name="test/**"/>
-                                        <exclude name="utest/**"/>
-                                    </fileset>
-                                </copy>
-                                <echo message="Copying test packages" />
-                                <copy todir="${testSourceDir}/test">
-                                    <fileset dir="${project.build.directory}/${project.artifactId}-${project.version}/src/test" />
-                                </copy>
-
-                                <echo message="Copying license files" />
-                                <copy todir="${project.basedir}">
-                                    <fileset dir="${project.build.directory}">
+                                <delete includeEmptyDirs="true">
+                                    <fileset dir="${mainResourcesDir}" includes="**/*"/>
+                                </delete>
+                                <delete includeEmptyDirs="true">
+                                    <fileset dir="${testResourcesDir}" includes="**/*"/>
+                                </delete>
+                                
+                                <echo message="Expanding archive ..." />
+                                <unzip src="${project.build.directory}/master.zip" dest="${project.build.directory}" />
+                                <echo message="Copying files ..." />
+                                <copy todir="${mainResourcesDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master">
+                                        <include name="**/LICENSE"/>
                                         <include name="**/*.license"/>
+                                        <include name="**/*license*.txt"/>
                                     </fileset>
                                     <mapper type="flatten"/>
+                                </copy>
+                                <copy todir="${mainSourceDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
+                                        <exclude name="META-INF/**"/>
+                                        <exclude name="test/**"/>
+                                    </fileset>
+                                </copy>
+                                <copy todir="${testSourceDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
+                                        <exclude name="org/**"/>
+                                        <exclude name="META-INF/**"/>
+                                    </fileset>
+                                </copy>
+                                <copy todir="${mainResourcesDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
+                                        <exclude name="org/**"/>
+                                        <exclude name="test/**"/>
+                                    </fileset>
+                                </copy>
+                                <copy todir="${testResourcesDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
+                                        <exclude name="org/**"/>
+                                        <exclude name="test/**"/>
+                                    </fileset>
                                 </copy>
                             </target>
                         </configuration>

@@ -115,9 +115,9 @@ import org.pushingpixels.flamingo.internal.utils.RenderingUtils;
  */
 public class BasicRibbonUI extends RibbonUI {
     /**
-     * Client property marking the ribbon component to indicate whether the task
-     * bar and contextual task group headers should be shown on the title pane
-     * of the window. This is only relevant for the {@link JRibbonFrame}.
+     * Client property marking the ribbon component to indicate whether the task bar and contextual
+     * task group headers should be shown on the title pane of the window. This is only relevant for
+     * the {@link JRibbonFrame}.
      */
     public static final String IS_USING_TITLE_PANE = "ribbon.internal.isUsingTitlePane";
 
@@ -218,20 +218,7 @@ public class BasicRibbonUI extends RibbonUI {
      * Installs listeners on the associated ribbon.
      */
     protected void installListeners() {
-        // this.mouseWheelListener = new MouseWheelListener() {
-        // public void mouseWheelMoved(MouseWheelEvent e) {
-        // handleMouseWheelEvent(e);
-        // }
-        // };
-        // this.taskToggleButtonsScrollablePanel.getView().addMouseWheelListener(
-        // this.mouseWheelListener);
-        //
-        this.ribbonChangeListener = new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                syncRibbonState();
-            }
-        };
+        this.ribbonChangeListener = (ChangeEvent e) -> syncRibbonState();
         this.ribbon.addChangeListener(this.ribbonChangeListener);
 
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
@@ -384,15 +371,11 @@ public class BasicRibbonUI extends RibbonUI {
         this.taskToggleButtonsScrollablePanel = new JScrollablePanel<TaskToggleButtonsHostPanel>(
                 taskToggleButtonsHostPanel, JScrollablePanel.ScrollType.HORIZONTALLY);
         this.taskToggleButtonsScrollablePanel.setScrollOnRollover(false);
-        this.taskToggleButtonsScrollablePanel.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                // need to repaint the entire ribbon since scrolling
-                // the task toggle buttons affects the contour outline
-                // of the ribbon
-                ribbon.repaint();
-            }
-        });
+        // need to repaint the entire ribbon on change since scrolling
+        // the task toggle buttons affects the contour outline
+        // of the ribbon
+        this.taskToggleButtonsScrollablePanel
+                .addChangeListener((ChangeEvent e) -> ribbon.repaint());
         this.ribbon.add(this.taskToggleButtonsScrollablePanel);
 
         this.ribbon.setLayout(createLayoutManager());
@@ -453,8 +436,7 @@ public class BasicRibbonUI extends RibbonUI {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics,
-     * javax.swing.JComponent)
+     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
      */
     @Override
     public void update(Graphics g, JComponent c) {
@@ -467,8 +449,7 @@ public class BasicRibbonUI extends RibbonUI {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics,
-     * javax.swing.JComponent)
+     * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
      */
     @Override
     public void paint(Graphics g, JComponent c) {
@@ -576,8 +557,7 @@ public class BasicRibbonUI extends RibbonUI {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.jvnet.flamingo.ribbon.ui.RibbonUI#getContextualGroupTabBounds(org
+     * @see org.jvnet.flamingo.ribbon.ui.RibbonUI#getContextualGroupTabBounds(org
      * .jvnet.flamingo.ribbon.RibbonContextualTaskGroup)
      */
     @Override
@@ -603,7 +583,7 @@ public class BasicRibbonUI extends RibbonUI {
      * @return The layout gap for the bands in the associated ribbon.
      */
     protected int getBandGap() {
-        return 2;
+        return FlamingoUtilities.getScaledSize(2, this.ribbon.getFont().getSize(), 0.2, 1);
     }
 
     /**
@@ -612,12 +592,12 @@ public class BasicRibbonUI extends RibbonUI {
      * @return The layout gap for the tab buttons in the associated ribbon.
      */
     protected int getTabButtonGap() {
-        return 6;
+        return FlamingoUtilities.getScaledSize(6, this.ribbon.getFont().getSize(), 0.25, 1);
     }
 
     /**
-     * Invoked by <code>installUI</code> to create a layout manager object to
-     * manage the {@link JRibbon}.
+     * Invoked by <code>installUI</code> to create a layout manager object to manage the
+     * {@link JRibbon}.
      * 
      * @return a layout manager object
      */
@@ -626,8 +606,8 @@ public class BasicRibbonUI extends RibbonUI {
     }
 
     /**
-     * Invoked by <code>installUI</code> to create a layout manager object to
-     * manage the {@link JRibbon} taskbar.
+     * Invoked by <code>installUI</code> to create a layout manager object to manage the
+     * {@link JRibbon} taskbar.
      * 
      * @return a layout manager object
      */
@@ -641,7 +621,7 @@ public class BasicRibbonUI extends RibbonUI {
      * @return The height of the taskbar area.
      */
     public int getTaskbarHeight() {
-        return 24;
+        return FlamingoUtilities.getScaledSize(24, this.ribbon.getFont().getSize(), 1.5f, 1);
     }
 
     /**
@@ -662,8 +642,7 @@ public class BasicRibbonUI extends RibbonUI {
         /*
          * (non-Javadoc)
          * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String,
-         * java.awt.Component)
+         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component c) {
         }
@@ -879,8 +858,7 @@ public class BasicRibbonUI extends RibbonUI {
         /*
          * (non-Javadoc)
          * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String,
-         * java.awt.Component)
+         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component c) {
         }
@@ -929,7 +907,7 @@ public class BasicRibbonUI extends RibbonUI {
             int gap = getBandGap();
 
             boolean ltr = c.getComponentOrientation().isLeftToRight();
-
+            int childHeight = getTaskbarHeight() - ins.top - ins.bottom;
             if (ltr) {
                 int x = ins.left + 1;
                 if (applicationMenuButton.isVisible()) {
@@ -938,7 +916,7 @@ public class BasicRibbonUI extends RibbonUI {
 
                 for (Component regComp : ribbon.getTaskbarComponents()) {
                     int pw = regComp.getPreferredSize().width;
-                    regComp.setBounds(x, ins.top + 1, pw, c.getHeight() - ins.top - ins.bottom - 2);
+                    regComp.setBounds(x, ins.top + 1, pw, childHeight);
                     x += (pw + gap);
                 }
             } else {
@@ -949,8 +927,7 @@ public class BasicRibbonUI extends RibbonUI {
 
                 for (Component regComp : ribbon.getTaskbarComponents()) {
                     int pw = regComp.getPreferredSize().width;
-                    regComp.setBounds(x - pw, ins.top + 1, pw,
-                            c.getHeight() - ins.top - ins.bottom - 2);
+                    regComp.setBounds(x - pw, ins.top + 1, pw, childHeight);
                     x -= (pw + gap);
                 }
             }
@@ -1208,8 +1185,7 @@ public class BasicRibbonUI extends RibbonUI {
         /*
          * (non-Javadoc)
          * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String,
-         * java.awt.Component)
+         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component c) {
         }
@@ -1423,7 +1399,8 @@ public class BasicRibbonUI extends RibbonUI {
 
                 // System.out.println("\t" + ribbonBand.getTitle() + ":"
                 // + currentResizePolicy.getClass().getSimpleName() + ":"
-                // + requiredBandWidth + " under " + ribbonBandHeight);
+                // + requiredBandWidth + "[insets " + ribbonBandInsets.left + "," +
+                // ribbonBandInsets.right + "] under " + ribbonBandHeight);
 
                 if (ribbonBand.getHeight() > 0) {
                     ribbonBand.doLayout();
@@ -1571,8 +1548,7 @@ public class BasicRibbonUI extends RibbonUI {
         /*
          * (non-Javadoc)
          * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String,
-         * java.awt.Component)
+         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component c) {
         }
@@ -1891,6 +1867,7 @@ public class BasicRibbonUI extends RibbonUI {
             this.helpButton.setDisplayState(CommandButtonDisplayState.SMALL);
             this.helpButton.setCommandButtonKind(CommandButtonKind.ACTION_ONLY);
             this.helpButton.getActionModel().addActionListener(helpListener);
+            this.helpButton.setActionRichTooltip(this.ribbon.getHelpRichTooltip());
             this.ribbon.add(this.helpButton);
         }
 
@@ -1899,8 +1876,7 @@ public class BasicRibbonUI extends RibbonUI {
     }
 
     /**
-     * Returns the list of currently shown ribbon tasks. This method is for
-     * internal use only.
+     * Returns the list of currently shown ribbon tasks. This method is for internal use only.
      * 
      * @return The list of currently shown ribbon tasks.
      */
@@ -1951,8 +1927,7 @@ public class BasicRibbonUI extends RibbonUI {
 
     protected static class BandHostPopupPanel extends JPopupPanel {
         /**
-         * The main component of <code>this</code> popup panel. Can be
-         * <code>null</code>.
+         * The main component of <code>this</code> popup panel. Can be <code>null</code>.
          */
         // protected Component component;
         public BandHostPopupPanel(Component component, Dimension originalSize) {

@@ -620,7 +620,16 @@ public class BasicPopupPanelUI extends PopupPanelUI {
 					return;
 				}
 
-				PopupPanelManager.defaultManager().hidePopups(src);
+				// Find the deepest child that contains the location of our mouse
+				// wheel event
+				Component deepest = SwingUtilities.getDeepestComponentAt(
+				        src, me.getX(), me.getY());
+				if (SwingUtilities.getAncestorOfClass(ScrollableHost.class, deepest) == null) {
+				    // The source of the mouse wheel event is not in a menu that supports
+				    // hosting scrollable content. Dismiss all our popups
+				    PopupPanelManager.defaultManager().hidePopups(src);
+				}
+
 				break;
 			}
 		}
