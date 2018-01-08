@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.pushingpixels</groupId>
+        <artifactId>swing-effects</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    
+    <groupId>org.pushingpixels</groupId>
+    <artifactId>laf-plugin</artifactId>
+    <version>1.2</version>
+    <packaging>jar</packaging>
+    <name>Laf-Plugin</name>
+    <description>Support for third-party components in Swing look-and-feel libraries</description>
+    <url>https://github.com/kirill-grouchnikov/laf-plugin</url>
+    
+    <licenses>
+        <license>
+            <name>BSD License</name>
+            <url>https://opensource.org/licenses/bsd-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <name>Kirill Grouchnikov</name>
+            <url>http://www.pushing-pixels.org/about-kirill</url>
+        </developer>
+    </developers>
+    
+
+    <!--dependencies>
+        <dependency>
+            <groupId>org.pushingpixels</groupId>
+            <artifactId>trident</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm-all</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.10.1</version>
+        </dependency>
+    </dependencies-->
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>wagon-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>download-single</goal>
+                        </goals>
+                        <configuration>
+                            <url>${project.url}/archive</url>
+                            <fromFile>master.zip</fromFile>
+                            <toDir>${project.build.directory}</toDir>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo message="Cleaning ..." />
+                                <delete includeEmptyDirs="true">
+                                    <fileset dir="${mainSourceDir}" includes="**/*"/>
+                                </delete>
+                                <delete includeEmptyDirs="true">
+                                    <fileset dir="${testSourceDir}" includes="**/*"/>
+                                </delete>
+                                <delete includeEmptyDirs="true">
+                                    <fileset dir="${mainResourcesDir}" includes="**/*"/>
+                                </delete>
+                                <delete includeEmptyDirs="true">
+                                    <fileset dir="${testResourcesDir}" includes="**/*"/>
+                                </delete>
+                                
+                                <echo message="Expanding archive ..." />
+                                <unzip src="${project.build.directory}/master.zip" dest="${project.build.directory}" />
+                                <echo message="Copying files ..." />
+                                <copy todir="${mainResourcesDir}/META-INF">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master">
+                                        <include name="**/LICENSE"/>
+                                        <include name="**/*.license"/>
+                                        <include name="**/*license*.txt"/>
+                                    </fileset>
+                                    <mapper type="flatten"/>
+                                </copy>
+                                <copy todir="${mainSourceDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
+                                        <exclude name="test/**"/>
+                                        <exclude name="resource/**"/>
+                                        <exclude name="META-INF/**"/>
+                                        <exclude name="*/*.colorschemes"/>
+                                        <exclude name="*/*.properties"/>
+                                        <exclude name="*/*.form"/>
+                                        <exclude name="*/*.svg"/>
+                                        <exclude name="*/*.png"/>
+                                        <exclude name="**/LICENSE"/>
+                                        <exclude name="**/*.license"/>
+                                        <exclude name="**/*license*.txt"/>
+                                        <exclude name="**/*.ttf"/>
+                                    </fileset>
+                                </copy>
+                                <copy todir="${testSourceDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
+                                        <exclude name="org/**"/>
+                                        <exclude name="resource/**"/>
+                                        <exclude name="META-INF/**"/>
+                                        <exclude name="**/*.colorschemes"/>
+                                        <exclude name="**/*.properties"/>
+                                        <exclude name="**/*.form"/>
+                                        <exclude name="**/*.svg"/>
+                                        <exclude name="**/*.png"/>
+                                        <exclude name="**/LICENSE"/>
+                                        <exclude name="**/*.license"/>
+                                        <exclude name="**/*license*.txt"/>
+                                        <exclude name="**/*.ttf"/>
+                                    </fileset>
+                                </copy>
+                                <copy todir="${mainResourcesDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
+                                        <exclude name="**/*.java"/>
+                                        <include name="META-INF/**"/>
+                                        <include name="resource/**"/>
+                                        <include name="**/*.colorschemes"/>
+                                        <include name="**/*.properties"/>
+                                        <include name="**/*.form"/>
+                                        <include name="**/*.svg"/>
+                                        <include name="**/*.png"/>
+                                        <include name="**/*.ttf"/>
+                                    </fileset>
+                                </copy>
+                                <copy todir="${testResourcesDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
+                                        <exclude name="**/*.java"/>
+                                        <include name="META-INF/**"/>
+                                        <include name="resource/**"/>
+                                        <include name="**/*.colorschemes"/>
+                                        <include name="**/*.properties"/>
+                                        <include name="**/*.form"/>
+                                        <include name="**/*.svg"/>
+                                        <include name="**/*.png"/>
+                                        <include name="**/*.ttf"/>
+                                    </fileset>
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -51,11 +51,11 @@
         <mainResourcesDir>${project.basedir}/src/main/resources</mainResourcesDir>
         <testResourcesDir>${project.basedir}/src/test/resources</testResourcesDir>
         
-        <!--maven.test.skip>true</maven.test.skip-->
     </properties>
 
     <modules>
         <module>Trident</module>
+        <module>Laf-Plugin</module>
         <module>Laf-Widget</module>
         <module>Flamingo</module>
         <module>Substance</module>

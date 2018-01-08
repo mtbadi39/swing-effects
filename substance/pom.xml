@@ -37,17 +37,6 @@
             <artifactId>laf-widget</artifactId>
             <version>5.3</version>
         </dependency>
-        <!--dependency>
-            <groupId>org.tmatesoft.svnkit</groupId>
-            <artifactId>svnkit</artifactId>
-            <version>1.9.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>batik-all</artifactId>
-            <version>1.9.1</version>
-        </dependency-->
-
         <dependency>
             <groupId>com.jgoodies</groupId>
             <artifactId>forms</artifactId>
@@ -112,10 +101,10 @@
                                     <fileset dir="${testResourcesDir}" includes="**/*"/>
                                 </delete>
                                 
-                                <echo message="Unzipping archive" />
+                                <echo message="Expanding archive ..." />
                                 <unzip src="${project.build.directory}/master.zip" dest="${project.build.directory}" />
                                 <echo message="Copying files ..." />
-                                <copy todir="${mainResourcesDir}">
+                                <copy todir="${mainResourcesDir}/META-INF">
                                     <fileset dir="${project.build.directory}/${project.artifactId}-master">
                                         <include name="**/LICENSE"/>
                                         <include name="**/*.license"/>
@@ -125,26 +114,60 @@
                                 </copy>
                                 <copy todir="${mainSourceDir}">
                                     <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
-                                        <exclude name="META-INF/**"/>
                                         <exclude name="test/**"/>
+                                        <exclude name="resource/**"/>
+                                        <exclude name="META-INF/**"/>
+                                        <exclude name="*/*.colorschemes"/>
+                                        <exclude name="*/*.properties"/>
+                                        <exclude name="*/*.form"/>
+                                        <exclude name="*/*.svg"/>
+                                        <exclude name="*/*.png"/>
+                                        <exclude name="**/LICENSE"/>
+                                        <exclude name="**/*.license"/>
+                                        <exclude name="**/*license*.txt"/>
+                                        <exclude name="**/*.ttf"/>
                                     </fileset>
                                 </copy>
                                 <copy todir="${testSourceDir}">
                                     <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
                                         <exclude name="org/**"/>
+                                        <exclude name="resource/**"/>
                                         <exclude name="META-INF/**"/>
+                                        <exclude name="**/*.colorschemes"/>
+                                        <exclude name="**/*.properties"/>
+                                        <exclude name="**/*.form"/>
+                                        <exclude name="**/*.svg"/>
+                                        <exclude name="**/*.png"/>
+                                        <exclude name="**/LICENSE"/>
+                                        <exclude name="**/*.license"/>
+                                        <exclude name="**/*license*.txt"/>
+                                        <exclude name="**/*.ttf"/>
                                     </fileset>
                                 </copy>
                                 <copy todir="${mainResourcesDir}">
                                     <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
-                                        <exclude name="org/**"/>
-                                        <exclude name="test/**"/>
+                                        <exclude name="**/*.java"/>
+                                        <include name="META-INF/**"/>
+                                        <include name="resource/**"/>
+                                        <include name="**/*.colorschemes"/>
+                                        <include name="**/*.properties"/>
+                                        <include name="**/*.form"/>
+                                        <include name="**/*.svg"/>
+                                        <include name="**/*.png"/>
+                                        <include name="**/*.ttf"/>
                                     </fileset>
                                 </copy>
                                 <copy todir="${testResourcesDir}">
                                     <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
-                                        <exclude name="org/**"/>
-                                        <exclude name="test/**"/>
+                                        <exclude name="**/*.java"/>
+                                        <include name="META-INF/**"/>
+                                        <include name="resource/**"/>
+                                        <include name="**/*.colorschemes"/>
+                                        <include name="**/*.properties"/>
+                                        <include name="**/*.form"/>
+                                        <include name="**/*.svg"/>
+                                        <include name="**/*.png"/>
+                                        <include name="**/*.ttf"/>
                                     </fileset>
                                 </copy>
                             </target>
