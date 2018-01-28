@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>org.pushingpixels</groupId>
+        <groupId>com.github.mtbadi39</groupId>
         <artifactId>swing-effects</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     
     <groupId>org.pushingpixels</groupId>
     <artifactId>flamingo</artifactId>
-    <version>5.1.01</version>
+    <version>6.0.00-dev</version>
     <packaging>jar</packaging>
     <name>Flamingo</name>
     <description>Flamingo swing component suite</description>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.pushingpixels</groupId>
             <artifactId>trident</artifactId>
-            <version>1.4</version>
+            <version>1.5.00-dev</version>
         </dependency>
         <dependency>
             <groupId>org.tmatesoft.svnkit</groupId>
@@ -128,15 +128,16 @@
                                         <exclude name="utest/**"/>
                                         <exclude name="resource/**"/>
                                         <exclude name="META-INF/**"/>
-                                        <exclude name="*/*.colorschemes"/>
-                                        <exclude name="*/*.properties"/>
-                                        <exclude name="*/*.form"/>
-                                        <exclude name="*/*.svg"/>
-                                        <exclude name="*/*.png"/>
+                                        <exclude name="**/*.colorschemes"/>
+                                        <exclude name="**/*.properties"/>
+                                        <exclude name="**/*.form"/>
+                                        <exclude name="**/*.svg"/>
+                                        <exclude name="**/*.png"/>
+                                        <exclude name="**/*.ico"/>
+                                        <exclude name="**/*.ttf"/>
                                         <exclude name="**/LICENSE"/>
                                         <exclude name="**/*.license"/>
                                         <exclude name="**/*license*.txt"/>
-                                        <exclude name="**/*.ttf"/>
                                     </fileset>
                                 </copy>
                                 <copy todir="${testSourceDir}">
@@ -149,10 +150,11 @@
                                         <exclude name="**/*.form"/>
                                         <exclude name="**/*.svg"/>
                                         <exclude name="**/*.png"/>
+                                        <exclude name="**/*.ico"/>
+                                        <exclude name="**/*.ttf"/>
                                         <exclude name="**/LICENSE"/>
                                         <exclude name="**/*.license"/>
                                         <exclude name="**/*license*.txt"/>
-                                        <exclude name="**/*.ttf"/>
                                     </fileset>
                                 </copy>
                                 <copy todir="${mainResourcesDir}">
@@ -165,6 +167,7 @@
                                         <include name="**/*.form"/>
                                         <include name="**/*.svg"/>
                                         <include name="**/*.png"/>
+                                        <include name="**/*.ico"/>
                                         <include name="**/*.ttf"/>
                                     </fileset>
                                 </copy>
@@ -178,6 +181,7 @@
                                         <include name="**/*.form"/>
                                         <include name="**/*.svg"/>
                                         <include name="**/*.png"/>
+                                        <include name="**/*.ico"/>
                                         <include name="**/*.ttf"/>
                                     </fileset>
                                 </copy>

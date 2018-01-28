@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>org.pushingpixels</groupId>
+        <groupId>com.github.mtbadi39</groupId>
         <artifactId>swing-effects</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.pushingpixels</groupId>
             <artifactId>trident</artifactId>
-            <version>1.4</version>
+            <version>1.5.00-dev</version>
         </dependency>
         <dependency>
             <groupId>asm</groupId>
@@ -109,61 +109,66 @@
                                 <copy todir="${mainSourceDir}">
                                     <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
                                         <exclude name="test/**"/>
+                                        <exclude name="utest/**"/>
                                         <exclude name="resource/**"/>
                                         <exclude name="META-INF/**"/>
-                                        <exclude name="*/*.colorschemes"/>
-                                        <exclude name="*/*.properties"/>
-                                        <exclude name="*/*.form"/>
-                                        <exclude name="*/*.svg"/>
-                                        <exclude name="*/*.png"/>
-                                        <exclude name="**/LICENSE"/>
-                                        <exclude name="**/*.license"/>
-                                        <exclude name="**/*license*.txt"/>
-                                        <exclude name="**/*.ttf"/>
-                                    </fileset>
-                                </copy>
-                                <copy todir="${testSourceDir}">
-                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
-                                        <exclude name="org/**"/>
-                                        <exclude name="resource/**"/>
-                                        <exclude name="META-INF/**"/>
-                                        <exclude name="**/*.colorschemes"/>
+                                        <exclude name="**/*.colorscheme*"/>
                                         <exclude name="**/*.properties"/>
                                         <exclude name="**/*.form"/>
                                         <exclude name="**/*.svg"/>
                                         <exclude name="**/*.png"/>
+                                        <exclude name="**/*.ico"/>
+                                        <exclude name="**/*.ttf"/>
                                         <exclude name="**/LICENSE"/>
                                         <exclude name="**/*.license"/>
                                         <exclude name="**/*license*.txt"/>
-                                        <exclude name="**/*.ttf"/>
                                     </fileset>
                                 </copy>
+                                <!--copy todir="${testSourceDir}">
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
+                                        <exclude name="org/**"/>
+                                        <exclude name="resource/**"/>
+                                        <exclude name="META-INF/**"/>
+                                        <exclude name="**/*.colorscheme*"/>
+                                        <exclude name="**/*.properties"/>
+                                        <exclude name="**/*.form"/>
+                                        <exclude name="**/*.svg"/>
+                                        <exclude name="**/*.png"/>
+                                        <exclude name="**/*.ico"/>
+                                        <exclude name="**/*.ttf"/>
+                                        <exclude name="**/LICENSE"/>
+                                        <exclude name="**/*.license"/>
+                                        <exclude name="**/*license*.txt"/>
+                                    </fileset>
+                                </copy-->
                                 <copy todir="${mainResourcesDir}">
                                     <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
                                         <exclude name="**/*.java"/>
                                         <include name="META-INF/**"/>
                                         <include name="resource/**"/>
-                                        <include name="**/*.colorschemes"/>
+                                        <include name="**/*.colorscheme*"/>
                                         <include name="**/*.properties"/>
                                         <include name="**/*.form"/>
                                         <include name="**/*.svg"/>
                                         <include name="**/*.png"/>
+                                        <include name="**/*.ico"/>
                                         <include name="**/*.ttf"/>
                                     </fileset>
                                 </copy>
-                                <copy todir="${testResourcesDir}">
+                                <!--copy todir="${testResourcesDir}">
                                     <fileset dir="${project.build.directory}/${project.artifactId}-master/src">
                                         <exclude name="**/*.java"/>
                                         <include name="META-INF/**"/>
                                         <include name="resource/**"/>
-                                        <include name="**/*.colorschemes"/>
+                                        <include name="**/*.colorscheme*"/>
                                         <include name="**/*.properties"/>
                                         <include name="**/*.form"/>
                                         <include name="**/*.svg"/>
                                         <include name="**/*.png"/>
+                                        <include name="**/*.ico"/>
                                         <include name="**/*.ttf"/>
                                     </fileset>
-                                </copy>
+                                </copy-->
                             </target>
                         </configuration>
                     </execution>

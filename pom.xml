@@ -8,7 +8,7 @@
         <version>9</version>
     </parent>
     
-    <groupId>org.pushingpixels</groupId>
+    <groupId>com.github.mtbadi39</groupId>
     <artifactId>swing-effects</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -33,9 +33,9 @@
     </developers>
         
     <scm>
-        <url>http://github.com/mtbadi39/swing-effects</url>
+        <url>https://github.com/mtbadi39/swing-effects</url>
         <connection>scm:git:https://github.com/mtbadi39/swing-effects.git</connection>
-        <developerConnection>scm:git:https://github.com/mtbadi39/swing-effects.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com/mtbadi39/swing-effects.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
     
@@ -51,6 +51,8 @@
         <mainResourcesDir>${project.basedir}/src/main/resources</mainResourcesDir>
         <testResourcesDir>${project.basedir}/src/test/resources</testResourcesDir>
         
+        <user.name>mtbadi39</user.name>
+        
     </properties>
 
     <modules>
@@ -64,6 +66,23 @@
     
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>purge-local-dependencies</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>purge-local-repository</goal>
+                        </goals>
+                        <configuration>
+                            <actTransitively>false</actTransitively>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

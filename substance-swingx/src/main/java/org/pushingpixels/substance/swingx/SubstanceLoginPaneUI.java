@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2016 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2018 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -170,7 +170,8 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
             themedIcon.paintIcon(loginPanel, graphics, 0, 0);
         }
 
-        if (UIUtil.isRetina()) {
+        double scaleFactor = UIUtil.getScaleFactor();
+        if (scaleFactor > 1.0f) {
             GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice d = e.getDefaultScreenDevice();
             GraphicsConfiguration c = d.getDefaultConfiguration();
@@ -179,8 +180,8 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
             Graphics2D scaledGraphics = (Graphics2D) scaledDown.getGraphics().create();
             scaledGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-            scaledGraphics.drawImage(result, 0, 0, result.getWidth() / 2, result.getHeight() / 2,
-                    null);
+            scaledGraphics.drawImage(result, 0, 0, (int) (result.getWidth() / scaleFactor),
+                    (int) (result.getHeight() / scaleFactor), null);
             scaledGraphics.dispose();
             result = scaledDown;
         }
