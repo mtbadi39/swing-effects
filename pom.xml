@@ -79,6 +79,15 @@
                         </goals>
                         <configuration>
                             <actTransitively>false</actTransitively>
+                            <include>
+                                com.github.mtbadi39:swing-effects,
+                                org.pushingpixels:trident,
+                                org.pushingpixels:laf-plugin,
+                                org.pushingpixels:laf-widget,
+                                org.pushingpixels:flamingo,
+                                org.pushingpixels:substance,
+                                org.pushingpixels:substance-swingx
+                            </include>
                         </configuration>
                     </execution>
                 </executions>
