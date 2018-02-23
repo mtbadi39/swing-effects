@@ -13,7 +13,7 @@
     <version>${ibis.version}</version>
     <packaging>jar</packaging>
     <name>Ibis</name>
-    <description>Animation library for Java applications</description>
+    <description>SVG icons for Swing applications</description>
     <url>https://github.com/kirill-grouchnikov/ibis</url>
     
     <licenses>
