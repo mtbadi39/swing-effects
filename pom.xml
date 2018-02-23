@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
     
     <name>Swing Effects</name>
-    <description>Mavenized versions of **Kirill Grouchnikov** libraries : Substance, Trident and Flamingo</description>
+    <description>Mavenized versions for **Kirill Grouchnikov** libraries : Trident, Flamingo, Substance ...etc.</description>
     <url>https://github.com/mtbadi39/swing-effects</url>
     
     <licenses>
@@ -46,12 +46,21 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         
-        <mainSourceDir>${project.basedir}/src/main/java</mainSourceDir>
-        <testSourceDir>${project.basedir}/src/test/java</testSourceDir>
-        <mainResourcesDir>${project.basedir}/src/main/resources</mainResourcesDir>
-        <testResourcesDir>${project.basedir}/src/test/resources</testResourcesDir>
+        <project.source.dir>${project.basedir}/src</project.source.dir>
+        <project.main.source>${project.basedir}/src/main/java</project.main.source>
+        <project.test.source>${project.basedir}/src/test/java</project.test.source>
+        <project.main.resources>${project.basedir}/src/main/resources</project.main.resources>
+        <project.test.resources>${project.basedir}/src/test/resources</project.test.resources>
         
-        <user.name>mtbadi39</user.name>
+        <user.name>mtbadi39 at github.com</user.name>
+        
+        <laf-plugin.version>1.2</laf-plugin.version>
+        <laf-widget.version>5.3</laf-widget.version>
+
+        <trident.version>1.5.00-dev</trident.version>
+        <flamingo.version>5.3.00-dev</flamingo.version>
+        <ibis.version>1.0.00-dev</ibis.version>
+        <substance.version>8.0.00-dev</substance.version>
         
     </properties>
 
@@ -60,8 +69,10 @@
         <module>Laf-Plugin</module>
         <module>Laf-Widget</module>
         <module>Flamingo</module>
+        <module>Ibis</module>
         <module>Substance</module>
         <module>Substance-Swingx</module>
+        <module>Substance-Flamingo</module>
     </modules>
     
     <build>
@@ -80,13 +91,17 @@
                         <configuration>
                             <actTransitively>false</actTransitively>
                             <include>
+                                <!-- Parent project -->
                                 com.github.mtbadi39:swing-effects,
+                                <!-- Libraries -->
                                 org.pushingpixels:trident,
                                 org.pushingpixels:laf-plugin,
                                 org.pushingpixels:laf-widget,
                                 org.pushingpixels:flamingo,
+                                org.pushingpixels:ibis,
                                 org.pushingpixels:substance,
-                                org.pushingpixels:substance-swingx
+                                org.pushingpixels:substance-swingx,
+                                org.pushingpixels:substance-flamingo
                             </include>
                         </configuration>
                     </execution>
@@ -102,11 +117,11 @@
                     <showWarnings>false</showWarnings>
                     <showDeprecation>true</showDeprecation>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <compilerArgs>
-                        <!--arg>-Werror</arg-->
-                        <!--arg>-verbose</arg-->
-                        <!--arg>-Xlint:all,-options,-path,-processing</arg-->
-                    </compilerArgs>
+                    <!--compilerArgs>
+                        <arg>-Werror</arg>
+                        <arg>-verbose</arg>
+                        <arg>-Xlint:all,-options,-path,-processing</arg>
+                    </compilerArgs-->
                 </configuration>
             </plugin>
             <plugin>
