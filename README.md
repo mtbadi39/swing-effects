@@ -1,5 +1,5 @@
-# This project was deprecated !!
-As of the new **[Radiance Project]**(http://www.pushing-pixels.org/2018/05/23/hello-radiance.html). :smiley: :clap: :rocket:
+# This project is now deprecated !!
+As of the new **[Radiance Project](http://www.pushing-pixels.org/2018/05/23/hello-radiance.html)**. :smiley: :clap: :rocket:
 # What is it ?
 A mavenized versions of **[Kirill Grouchnikov](https://github.com/kirill-grouchnikov)** libraries : **Trident**, **Flamingo**, **Substance** ...etc. The goal is to simplify their usage in Maven/Gradle projects.
 # How to use ?
